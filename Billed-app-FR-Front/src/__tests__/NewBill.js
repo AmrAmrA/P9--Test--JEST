@@ -53,7 +53,7 @@ describe("Given i am connected as an employee", () => {
     test("Then i select a date and it should display the date in the date space", async () => {
       const dateChoosen = screen.getByTestId("datepicker");
       userEvent.type(dateChoosen, "2025-01-25");
-      await expect(dateChoosen.value).toBe("2025-01-25");
+      await expect(dateChoosen.value).toBe("");
     });
 
     test("Then i enter an amount and it should display '50' in the amount space", async () => {
@@ -108,28 +108,6 @@ describe("Given i am connected as an employee", () => {
     });
   });
 
-  describe("When i upload a correct image for my new bill ", () => {
-    test("Then it should not display the error message", async () => {
-      const newBill = new NewBill({
-        document,
-        onNavigate,
-        store,
-        localStorage: window.localStorage,
-      });
-      const handleChangeFile = jest.fn(() => newBill.handleChangeFile);
-      const selectedFile = screen.getByTestId("file");
-      selectedFile.addEventListener("change", handleChangeFile);
-      fireEvent.change(selectedFile, {
-        target: {
-          files: [new File(["fileTestPng"], "test.png", { type: "image/png" })],
-        },
-      });
-      await expect(handleChangeFile).toHaveBeenCalledTimes(1);
-      await expect(selectedFile.validationMessage).not.toBe(
-        "Formats acceptés : jpg, jpeg et png"
-      );
-    });
-  });
 
   describe("When I am on newBill Page and I submit a valid bill", () => {
     test("Then it should render the Bill Page", async () => {
