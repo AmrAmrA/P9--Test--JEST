@@ -5,7 +5,7 @@
 import LoginUI from "../views/LoginUI";
 import Login from "../containers/Login.js";
 import { ROUTES } from "../constants/routes";
-import { fireEvent, screen } from "@testing-library/dom";
+import { fireEvent, screen, getByText, getByTestId, getByLabelText } from "@testing-library/dom";
 
 describe("Given that I am a user on login page", () => {
   describe("When I do not fill fields and I click on employee button Login In", () => {
@@ -36,8 +36,8 @@ describe("Given that I am a user on login page", () => {
       expect(inputEmailUser.value).toBe("pasunemail");
 
       const inputPasswordUser = screen.getByTestId("employee-password-input");
-      fireEvent.change(inputPasswordUser, { target: { value: "azerty" } });
-      expect(inputPasswordUser.value).toBe("azerty");
+      fireEvent.change(inputPasswordUser, { target: { value: "0123456789" } });
+      expect(inputPasswordUser.value).toBe("0123456789");
 
       const form = screen.getByTestId("form-employee");
       const handleSubmit = jest.fn((e) => e.preventDefault());
@@ -52,8 +52,8 @@ describe("Given that I am a user on login page", () => {
     test("Then I should be identified as an Employee in app", () => {
       document.body.innerHTML = LoginUI();
       const inputData = {
-        email: "johndoe@email.com",
-        password: "azerty",
+        email: "employee@test.tld",
+        password: "employee",
       };
 
       const inputEmailUser = screen.getByTestId("employee-email-input");
@@ -68,7 +68,7 @@ describe("Given that I am a user on login page", () => {
 
       const form = screen.getByTestId("form-employee");
 
-      // localStorage should be populated with form data
+  
       Object.defineProperty(window, "localStorage", {
         value: {
           getItem: jest.fn(() => null),
@@ -77,7 +77,7 @@ describe("Given that I am a user on login page", () => {
         writable: true,
       });
 
-      // we have to mock navigation to test it
+    
       const onNavigate = (pathname) => {
         document.body.innerHTML = ROUTES({ pathname });
       };
@@ -146,8 +146,8 @@ describe("Given that I am a user on login page", () => {
       expect(inputEmailUser.value).toBe("pasunemail");
 
       const inputPasswordUser = screen.getByTestId("admin-password-input");
-      fireEvent.change(inputPasswordUser, { target: { value: "azerty" } });
-      expect(inputPasswordUser.value).toBe("azerty");
+      fireEvent.change(inputPasswordUser, { target: { value: "0123456789" } });
+      expect(inputPasswordUser.value).toBe("0123456789");
 
       const form = screen.getByTestId("form-admin");
       const handleSubmit = jest.fn((e) => e.preventDefault());
@@ -163,8 +163,8 @@ describe("Given that I am a user on login page", () => {
       document.body.innerHTML = LoginUI();
       const inputData = {
         type: "Admin",
-        email: "johndoe@email.com",
-        password: "azerty",
+        email: "admin@test.tld",
+        password: "admin",
         status: "connected",
       };
 

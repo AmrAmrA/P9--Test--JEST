@@ -1,7 +1,7 @@
 import { ROUTES_PATH } from '../constants/routes.js'
 export let PREVIOUS_LOCATION = ''
 
-// we use a class so as to test its methods in e2e tests
+
 export default class Login {
   constructor({ document, localStorage, onNavigate, PREVIOUS_LOCATION, store }) {
     this.document = document
@@ -56,7 +56,7 @@ export default class Login {
       })
   }
 
-  // not need to cover this function by tests
+  // istanbul ignore next
   login = (user) => {
     if (this.store) {
       return this.store
@@ -71,7 +71,7 @@ export default class Login {
     }
   }
 
-  // not need to cover this function by tests
+  // istanbul ignore next
   createUser = (user) => {
     if (this.store) {
       return this.store
